@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+        <title>Simple Website</title>
+        <link rel="stylesheet" href="main.css">
+
+    </head>
+    <body class="light-theme">
+        <h1>Task List</h1>
+        <p id="msg">Current tasks:</p>
+        <ul>
+            <input id="cb" type="checkbox">
+            <li class="list">Make table create a new row when the current row is filled out</li>
+            <br>
+            <input id="cb" type="checkbox">
+            <li class="list">Make it so you can modify the table data</li>
+            <br>
+            <input id="cb" type="checkbox">
+            <li class="list">Figure out calculations so Entry, Stop are calculated based on R/R</li>
+            <br>
+        </ul>
+        <div>
+            <button class="btn" id="btnBgColor">Dark</button>
+        </div>
+
+        <table id="optionsTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Ticker</th>
+                    <th>Call/Put</th>
+                    <th>Expiry</th>
+                    <th># of Cons</th>
+                    <th>Strike</th>
+                    <th>R/R</th>
+                    <th>Entry</th>
+                    <th>SL</th>
+                    <th>TP</th>
+                    <th>Sold</th>
+                    <th>Emotions</th>
+                    <th>Trade Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn" id="btnAddRow">Add Entry</button>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+
+    <noscript>Enable javascript to get full functionality.</noscript>
+
+</html>
+
