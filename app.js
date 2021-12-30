@@ -2,11 +2,11 @@
 
 // Button to Change Light to Dark Theme
 
-const optionFields = ["date", "ticker", "callPut", "expiry", "numCons", "strike", "rr", "entry", "sl", "tp", "sold", "emotions", "tradeNotes"];
+const optionFields = ["date", "ticker", "callput", "expiry", "numCons", "strike", "rr", "entry", "sl", "tp", "sold", "emotions", "tradeNotes"];
 
 const bgSwitcher = document.querySelector('#btnBgColor');
 
-var csvData = null; //csv data from text file
+var serverData = null; //data from SQL server
 
 var entryData = []; //csv data in array format
 
@@ -42,27 +42,30 @@ function createTableRow(entryInfo)
     var tbodyRef = document.getElementById('optionsTable').getElementsByTagName('tbody')[0];
 
     var newRow = tbodyRef.insertRow();
-    
-    var newRowContent = [];
-    
+
+    if(entryInfo == undefined)
+    {
+        serverData[numRow] = [];
+    }
+        
     for (let i = 0; i < 13; i++) {
 
         var content = '""';
 
         if(entryInfo != undefined)
         {
-            content = entryInfo[i];
+            content = entryInfo[optionFields[i]];
+        }
+        else
+        {
+            serverData[numRow][optionFields[i]] = "";
         }
 
         var idName = optionFields[i] + numRow;
 
-        newRowContent.push(content);
-
         var cellContent = '<td><input id=' + idName + ' type="text" value=' + content + ' /></td>';
         newRow.innerHTML += cellContent;
     }
-
-    entryData.push(newRowContent);
 
     numRow += 1;
 }
@@ -70,21 +73,34 @@ function createTableRow(entryInfo)
 
 //Creates Table Based off Logged Data in entryLog.csv
 
-jQuery.get('http://127.0.0.1:5500/entryLog.csv', function(data) {
-    csvData = data.split(/\r?\n/);
+var oReq = new XMLHttpRequest();
 
-    for (let i = 1; i < csvData.length; i++)
+oReq.open("GET", "dbh.php", true);
+
+oReq.send();
+
+oReq.onreadystatechange = function()
+{
+    //do everything that requires the request to go through from the sql server here
+
+    if (this.readyState == 4 && this.status == 200)
     {
-        createTableRow(csvData[i].split(','));
-    }
-});
+        serverData = JSON.parse(this.responseText);
 
-// On row change, updates information in csv file
+        for (let i = 0; i < serverData.length; ++i)
+        {
+            createTableRow(serverData[i]);
+        }
+    }
+}
+
+
+
+// On any value change, updates information in sql server
 
 $(document).ready(function () {
     
     $(document).on("change", "#optionsTable :input", function() {
-        console.log(entryData);
         var optionCell = $(this);
         var optionCellValue = optionCell.val();
         var unparsedID = optionCell.attr('id');
@@ -92,8 +108,8 @@ $(document).ready(function () {
         var cellType = unparsedID.slice(0, unparsedID.length-1);
         console.log("Type: " + cellType + ", Row: " + cellRow + ", Value: " + optionCellValue);
 
-        entryData[cellRow][optionFields.indexOf(cellType)] = optionCellValue;
-
+        serverData[cellRow][cellType] = optionCellValue;
+        console.log(serverData);
     });
 
 });
