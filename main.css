@@ -20,6 +20,10 @@ input[type="checkbox"] {
     display: inline-block;
 }
 
+input[type="text"] {
+    color: var(--black);
+}
+
 li {
     list-style: circle;
     display: inline-block;
@@ -41,7 +45,7 @@ li {
     --btnFontColor: var(--black);
 }
 
-.btn {
+#btnBgColor {
     position: absolute;
     top: 20px;
     left: 250px;
@@ -49,6 +53,14 @@ li {
     width: 50px;
     border-radius: 50%;
     border: none;
+    color: var(--btnFontColor);
+    background-color: var(--btnBg);
+}
+
+#btnAddRow {
+    margin: 20px 0 0 20px;
+    border-radius: 10%;
+    height: 25px;
     color: var(--btnFontColor);
     background-color: var(--btnBg);
 }

@@ -1,0 +1,3 @@
+Date,Ticker,Call/Put,Expiry,# of Cons,Strike,R/R,Entry,SL,TP,Sold,Emotions,Trade Notes
+12/1/21,EFX,Call,12/17/21,6,209,1.2,5.46,4.91,6.40,6.24,Greed,NA
+12/27/21,CRM,Call,12/31/21,1,260,1.2,1.4,1.26,1.68,1.7,Confidence,NA
